@@ -246,7 +246,7 @@ char ADS124S08::regRead(unsigned int regnum)
 
 	releaseChipSelect();
 	//Serial.printlnf("regRead tx: %02x %02x %02x",ulDataTx[0],ulDataTx[1],ulDataTx[2]);
-	printf("regRead rx: %02x %02x %02x\r\n", ulDataRx[0], ulDataRx[1], ulDataRx[2]);
+	// printf("regRead rx: %02x %02x %02x\r\n", ulDataRx[0], ulDataRx[1], ulDataRx[2]);
 	return ulDataRx[2];
 }
 
@@ -307,7 +307,7 @@ void ADS124S08::regWrite(unsigned int regnum, unsigned char data)
 	SPI.endTransaction();
 	#endif
 	releaseChipSelect();
-	printf("regWrite tx: %02x %02x %02x\r\n", ulDataTx[0], ulDataTx[1], ulDataTx[2]);
+	// printf("regWrite tx: %02x %02x %02x\r\n", ulDataTx[0], ulDataTx[1], ulDataTx[2]);
 	return;
 }
 
@@ -352,7 +352,7 @@ void ADS124S08::writeRegs(unsigned int regnum, unsigned int howmuch, unsigned ch
  */
 void ADS124S08::sendCommand(uint8_t op_code)
 {
-	printf("Send command %x\r\n", op_code);
+	// printf("Send command %x\r\n", op_code);
 	selectDeviceCSLow();
 	#if defined(SPI_HAS_TRANSACTION)
 	SPI.beginTransaction(mySPISettings);
@@ -442,7 +442,7 @@ int ADS124S08::rData(uint8_t *dStatus, uint8_t *dData, uint8_t *dCRC)
 	result = data[0];
 	result = (result << 8) + data[1];
 	result = (result << 8) + data[2];
-	printf(" 1: %02x 2: %02x, 3: %02x = %d\r\n", data[0], data[1], data[2], result);
+	// printf(" 1: %02x 2: %02x, 3: %02x = %d\r\n", data[0], data[1], data[2], result);
 
 	// is CRC enabled?
 	uint8_t isCrcEnabled = (registers[SYS_ADDR_MASK] & 0x02) == DATA_MODE_CRC;
@@ -475,8 +475,8 @@ int ADS124S08::dataRead(uint8_t *dStatus, uint8_t *dData, uint8_t *dCRC)
 	if ((registers[SYS_ADDR_MASK] & 0x01) == DATA_MODE_STATUS)
 	{
 		xstatus = SPI.transfer(0x00);
-		Serial.print("0:");
-		Serial.print(xstatus);
+		// Serial.print("0:");
+		// Serial.print(xstatus);
 		dStatus[0] = (uint8_t)xstatus;
 	}
 
@@ -487,12 +487,12 @@ int ADS124S08::dataRead(uint8_t *dStatus, uint8_t *dData, uint8_t *dCRC)
 	data[1] = SPI.transfer(0x00);
 	data[2] = SPI.transfer(0x00);
 
-	Serial.print(" 1:");
-	Serial.print(data[0]);
-	Serial.print(" 2:");
-	Serial.print(data[1]);
-	Serial.print(" 3:");
-	Serial.println(data[2]);
+	// Serial.print(" 1:");
+	// Serial.print(data[0]);
+	// Serial.print(" 2:");
+	// Serial.print(data[1]);
+	// Serial.print(" 3:");
+	// Serial.println(data[2]);
 
 	iData = data[0];
 	iData = (iData << 8) + data[1];
