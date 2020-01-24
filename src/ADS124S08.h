@@ -429,6 +429,7 @@ public:
 	void SPI_Init(uint32_t SPI_speed, uint8_t chipSelect_Pin);
 	void SPI_Write_16(uint16_t Address, uint16_t Data);
 	void SPI_Write_32(uint16_t Address, uint32_t Data);
+	void SetIO(uint32_t MISO, uint32_t MOSI, uint32_t SCLK);
 	uint16_t SPI_Read_16(uint16_t Address);
 	uint32_t SPI_Read_32(uint16_t Address);
 	char regRead(unsigned int regnum);
